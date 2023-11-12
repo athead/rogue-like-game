@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i|Tinos:400,400i&subset=cyrillic"
+            rel="stylesheet"
+        />
+        <!-- <script type="text/javascript" src="/shared/3rdparty/jquery/jquery.js" language="javascript1.1"></script> -->
+        <script src="src/js/helpers/functions.js"></script>
+        <script src="src/js/helpers/gui.js"></script>
+        <script src="src/js/Item.js"></script>
+        <script src="src/js/Actor.js"></script>
+        <script src="src/js/Game.js"></script>
+        <script src="src/js/index.js"></script>
+        <link rel="stylesheet" type="text/css" href="src/css/main.css" />
+        <title>Rogue knight</title>
+    </head>
+
+    <body onkeypress="return RestrictKeys()">
+        <h1>Игровое поле</h1>
+        <div class="field-box">
+            <div id="game-status" class="overlay">
+                <div class="text">
+                    <p id="game-status-result" class="win"></p>
+                    <p id="game-status-text" class="">Загрузка</p>
+                </div>
+            </div>
+            <div class="field"></div>
+        </div>
+        <div class="cl"></div>
+        <div class="bottom-box">
+            <div>
+                <h1>Инвентарь</h1>
+                <div class="inventory-box"><div class="inventory"></div></div>
+            </div>
+            <div>
+                <h1>Герой</h1>
+                <p>HP: <span id="hero-hp"></span>%</p>
+                <p>Атака: <span id="hero-power"></span></p>
+            </div>
+        </div>
+    </body>
+</html>
