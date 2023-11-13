@@ -25,6 +25,7 @@ function Game(
     this.aiInterval = null
     // key listener
     this.keyListener = null
+    this.enterListener = null
 }
 
 Game.prototype.reset = function () {
@@ -146,20 +147,20 @@ Game.prototype.init = function () {
     // set status to ready
     this.setGameStatus(GAME_STATUS_START)
 
+    this.enterListener = function (event) {
+        if (event.code == 'Enter') {
+            if (this.gameStatus == GAME_STATUS_START) this.start()
+            if (
+                this.gameStatus == GAME_STATUS_WIN ||
+                this.gameStatus == GAME_STATUS_GAME_OVER
+            )
+                this.init()
+            this.isENterListenerInited = true
+        }
+    }.bind(this)
     // add event listener
-    document.addEventListener(
-        'keydown',
-        function (event) {
-            if (event.code == 'Enter') {
-                if (this.gameStatus == GAME_STATUS_START) this.start()
-                if (
-                    this.gameStatus == GAME_STATUS_WIN ||
-                    this.gameStatus == GAME_STATUS_GAME_OVER
-                )
-                    this.init()
-            }
-        }.bind(this)
-    )
+    if (!this.isENterListenerInited)
+        document.addEventListener('keydown', this.enterListener)
 
     // set status text
     setInnerText('game-status-text', GAME_START)
@@ -224,15 +225,6 @@ Game.prototype.drawActors = function () {
 
 // drow items
 Game.prototype.drawItems = function () {
-    // remove all items
-    let flasks = document.getElementsByClassName(FLASK)
-    let swords = document.getElementsByClassName(SWORD)
-    for (var f = 0; f < flasks.length; f++) {
-        flasks[f].parentNode.removeChild(flasks[f])
-    }
-    for (var s = 0; s < swords.length; s++) {
-        swords[s].parentNode.removeChild(swords[s])
-    }
     for (var i = 0; i < this.items.length; i++) {
         var item = this.items[i]
         switch (item.type) {
@@ -392,7 +384,7 @@ Game.prototype.aiAct = function (player, actor) {
         this.setGameStatus(GAME_STATUS_GAME_OVER)
         setInnerText('game-status-result', GAME_OVER)
         setDivClass('game-status-result', 'gameover')
-        setInnerText('game-status-text', GAME_START)
+        setInnerText('game-status-text', GAME_NEW)
         this.end()
     }
 }
