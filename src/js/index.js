@@ -63,6 +63,6 @@ function RestrictKeys() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // init game
-    var game = new Game()
-    game.init()
+    var gameEngine = new Game()
+    gameEngine.init()
 })
